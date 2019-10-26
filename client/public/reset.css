@@ -1,0 +1,81 @@
+/********** Resets **********/
+
+*, *:after, *:before {
+	box-sizing: border-box;
+}
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+.clearfix:after {
+   content: " "; /* Older browser do not support empty content */
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
+
+
+/********** Base Styles **********/
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-family: Lato, sans-serif;
+	font-size: 1.6em;
+}
+
+h1, h2, h3 {
+	padding: 1em 0 1em;
+}
+
+h1 {
+	font-size: 3em;
+	font-weight: normal;
+}
+
+h2 {
+	font-size: 2.6em;
+	font-weight: normal;
+}
+
+p {
+	margin: 1em 0 1em;
+}
+
+a {
+	font-size: 1.2em;
+	text-decoration: none;
+	padding: 10px 15px;
+}
+
+li {
+	text-align: center;
+	text-decoration: none;
+	list-style: none;
+}
+
+.row{
+	margin: 0 3%;
+} 
+
+
+/********** Header Styles ***********/
