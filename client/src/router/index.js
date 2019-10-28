@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import index from '../views/index.vue';
+import Index from '../views/index.vue';
 //import index from '../views/login.vue';
 //import index from '../views/register.vue';
 
@@ -11,7 +11,33 @@ const routes = [
   {
     path: '/',
     name: 'index',
-    component: index
+    component: Index,
+    children:[
+      {
+        path: '',
+        redirect: '/chats'
+      },
+      {
+        path: '/chats',
+        name: 'chats',
+        component:  () => import('../views/Chats.vue'),
+      },
+      {
+        path: '/contact',
+        name: 'contacts',
+        component:  () => import('../views/Contacts.vue'),
+      },
+      {
+        path: '/discover',
+        name: 'discover',
+        component:  () => import('../views/Discover.vue'),
+      },
+      {
+        path: '/me',
+        name: 'me',
+        component:  () => import('../views/Me.vue'),
+      }
+    ]
   },
   {
     path: '/login',

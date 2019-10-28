@@ -39,7 +39,7 @@ router.post("/login", (req, res) => {
         }
         if(pw === user.password){
             const rule = {id:user.id,name:user.name};
-            jwt.sign(rule,"secret",{expiresIn:3600},(err,token) => {
+            jwt.sign(rule,"secret",{expiresIn:600},(err,token) => {
                 res.json({
                     success: true,
                     token:"Bearer "+token
