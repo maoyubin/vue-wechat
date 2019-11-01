@@ -38,7 +38,7 @@ router.post("/login", (req, res) => {
             return res.status(404).json("user not exist!!");
         }
         if(pw === user.password){
-            const rule = {id:user.id,name:user.name};
+            const rule = {id:user.id,name:user.name,avatar: user.avatar};
             jwt.sign(rule,"secret",{expiresIn:600},(err,token) => {
                 res.json({
                     success: true,

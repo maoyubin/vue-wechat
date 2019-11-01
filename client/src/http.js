@@ -3,9 +3,9 @@ import router from './router'
 
 axios.interceptors.request.use(config => {
     console.log('Go through the axios request');
-    console.log('In request localStorage.wxpyqToken=>'+localStorage.wxpyqToken);
-    if(localStorage.wxpyqToken){
-        config.headers.Authorization = localStorage.wxpyqToken;
+    console.log('In request localStorage.wxpyqToken=>'+localStorage.mao);
+    if(localStorage.mao){
+        config.headers.Authorization = localStorage.mao;
     }
     return config;
 }, 
