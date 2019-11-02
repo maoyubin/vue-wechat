@@ -6,7 +6,7 @@
         <div class="pulldown">
             <div class="clear">
                 <div class="fl">
-                    <img src="../assets/scroll_load.gif" alt="">
+                    <img width="16" src="../assets/scroll_load.gif" alt="">
                     <div class="fl">
                         下拉刷新
                     </div>
@@ -60,6 +60,7 @@ export default {
     .scroll-wrap {
         width: 100%;
         height: 100%;
+        overflow: hidden;
     }
 
     .fl {
@@ -73,7 +74,7 @@ export default {
 
     .pulldown{
         width: 100%;
-        height: 150px;
+        height: 50px;
         position: relative;
         color: #888;
     }
@@ -83,7 +84,7 @@ export default {
         font-size: 0.28rem;
         position: absolute;
         left: 50%;
-        top: 70px;
+        top: 5px;
         transform: translate(-50%, 0);
     }
 </style>
