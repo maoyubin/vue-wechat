@@ -1,17 +1,16 @@
 <template>
     <div class="circle">
-       <Header title="朋友圈" btn_icon="camera" :isLeft="true" />
-       <div class="container">
-           <div class="scroll-wrap">
+        <Header title="朋友圈" btn_icon="camera" :isLeft="true" />
+        <div class="container">
+            <Scroll>
                <div class="head_wrapper">
-                   <div class="user_head">
-                   <span>{{user.name  }}</span>
-                   <div class="user_img">
-                       <img :src="user.avatar" alt="" class="head_img">
-                   </div>
-               </div>
-               </div>
-
+                    <div class="user_head">
+                        <span>{{user.name  }}</span>
+                        <div class="user_img">
+                            <img :src="user.avatar" alt="" class="head_img">
+                        </div>
+                    </div>
+                </div>
                 <div class="content_wrapper">
                      <CellView 
                         v-for="(moment,index) in momentsList"
@@ -19,9 +18,8 @@
                         :momentsObj="moment"
                         />
                 </div>
-
-           </div>
-       </div>
+            </Scroll>
+        </div>
     </div>
 </template>
 
@@ -29,6 +27,7 @@
 import Header from '../components/Header';
 import jwt_decode from 'jwt-decode';
 import CellView from '../components/CellView';
+import Scroll from '../components/Scroll';
 
 export default {
     name:"moments",
@@ -40,9 +39,8 @@ export default {
     computed: {
         user(){
             const token = localStorage.mao;
-
             const decode = jwt_decode(token);
-            console.log(decode);
+            //console.log(decode);
             return decode;
         }
     },
@@ -50,7 +48,7 @@ export default {
         getLatestData(){
             this.$axios("/api/profiles/latest")
             .then(res => {
-                console.log(res.data);
+                //console.log(res.data);
                 this.momentsList = [...res.data];
             });
         }
@@ -59,7 +57,7 @@ export default {
         this.getLatestData();
     },
     components: {
-        Header,CellView
+        Header,CellView,Scroll
     }
 }
 </script>
@@ -72,7 +70,7 @@ export default {
     box-sizing: border-box;
 }
 
-.contrainer {
+.container {
     width: 100%;
     height: calc(100% - 50px);
     padding-top: 50px;
@@ -113,4 +111,10 @@ export default {
     text-align: right;
     color:white;
 }
+
+.content_wrapper {
+    width: 100%;
+    height: 100%;
+}
+
 </style>

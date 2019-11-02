@@ -63,9 +63,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 
-  console.log('localStorage.getItem("mao") = >'+ localStorage.getItem("mao"));
+  //console.log('localStorage.getItem("mao") = >'+ localStorage.getItem("mao"));
   const isLogin = localStorage.getItem("mao") ? true:false;
-  console.log('isLogin = >'+isLogin);
+  //console.log('isLogin = >'+isLogin);
   if(to.path == "/login" || to.path == '/register'){
     next();
   }else{

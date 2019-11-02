@@ -2,8 +2,8 @@ import axios from 'axios'
 import router from './router'
 
 axios.interceptors.request.use(config => {
-    console.log('Go through the axios request');
-    console.log('In request localStorage.wxpyqToken=>'+localStorage.mao);
+    //console.log('Go through the axios request');
+    //console.log('In request localStorage.wxpyqToken=>'+localStorage.mao);
     if(localStorage.mao){
         config.headers.Authorization = localStorage.mao;
     }
@@ -18,7 +18,7 @@ error => {
 
 
 axios.interceptors.response.use(response => {
-    console.log('Go through the axios response');
+    //console.log('Go through the axios response');
     return response;
 }, 
 error => {

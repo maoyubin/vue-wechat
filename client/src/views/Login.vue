@@ -57,7 +57,7 @@ export default {
             this.$axios.post("/api/users/login", this.user)
             .then(res => {
                 const { token } = res.data;
-                console.log('token=>'+token);
+                //console.log('token=>'+token);
                 localStorage.setItem('mao', token);
                 this.$router.push('/');
             });

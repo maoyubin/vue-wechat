@@ -10,7 +10,7 @@
             <div class="cell_text" v-if="momentsObj.text">
                 {{momentsObj.text}}
             </div>
-            <div class="cell_img" v-if="momentsObj.imgs.lenth > 0">
+            <div class="cell_img" >
                 <img 
                     v-for="(item,index) in momentsObj.imgs"
                     :key="index"
