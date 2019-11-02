@@ -2,7 +2,7 @@
     <div class="circle">
         <Header title="朋友圈" btn_icon="camera" :isLeft="true" />
         <div class="container">
-            <Scroll>
+            <Scroll ref="refresh" @pulldown="loadData">
                <div class="head_wrapper">
                     <div class="user_head">
                         <span>{{user.name  }}</span>
@@ -51,10 +51,22 @@ export default {
                 //console.log(res.data);
                 this.momentsList = [...res.data];
             });
+
+            setTimeout(() => {
+                 //注册事件 解决重置
+                this.$refs.refresh.$emit("refresh");
+            }, 1000);
+        },
+
+        loadData() {
+            this.getLatestData();
         }
     },
     created() {
         this.getLatestData();
+    },
+    mounted(){
+       
     },
     components: {
         Header,CellView,Scroll

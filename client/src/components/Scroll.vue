@@ -3,12 +3,12 @@
 <div class="scroll-wrap"  ref="wrapper">
     <div>
         <!-- 下拉刷新 -->
-        <div class="pulldown">
+        <div class="pulldown" v-show="dragTip.showLoading">
             <div class="clear">
                 <div class="fl">
                     <img width="16" src="../assets/scroll_load.gif" alt="">
                     <div class="fl">
-                        下拉刷新
+                        {{dragTip.text}}
                     </div>
                 </div>
             </div>
@@ -30,7 +30,11 @@ export default {
     name: 'scroll',
      data(){
         return {
-            scroll: {}
+            scroll: {},
+            dragTip: {
+                text: "下拉刷新",
+                showLoading: false
+            }
         };
     },
     mounted(){
@@ -50,7 +54,38 @@ export default {
                 probeType: 1
             };
             this.scroll = new BScroll(this.$refs.wrapper, options);
+
+            //add 下拉事件
+            this.scroll.on('scroll', pos => {
+                this.dragTip.showLoading = true;
+
+                if(pos.y > 50){
+                    this.dragTip.text = "释放刷新";
+                }
+            });
+
+            this.scroll.on('touchEnd', pos => {
+                if(pos.y > 50){
+                    this.dragTip.text = "刷新中";
+                    //重新初始化
+
+                    //注册下拉事件
+                    this.$emit('pulldown');
+                    this.$on('refresh' ,this.reset);
+                }
+
+            });
         
+        },
+
+        reset(){
+            console.log('into reset method');
+            setTimeout(() => {
+                this.dragTip = {
+                    text: "下拉刷新",
+                    showLoading: false
+                }
+            }, 600);
         }
     }
 }
