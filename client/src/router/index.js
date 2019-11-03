@@ -51,6 +51,10 @@ const routes = [
     path: '/moments',
     name: 'moments',
     component: () => import("../views/Moments.vue") //layze load
+  },{
+    path: '/publish',
+    name: 'publish',
+    component: () => import("../views/Publish.vue") //layze load
   }
 ]
 

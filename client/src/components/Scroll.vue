@@ -18,6 +18,17 @@
         <slot> </slot>
 
         <!-- 上拉加载 -->
+        <div class="pullup">
+            <div class="clear" v-if="!isDone">
+                <div class="fl">
+                    <img width="16" src="../assets/scroll_load.gif" alt="">
+                    <div class="fl">加载中...</div>
+                </div>
+            </div>
+            <div class="list-donetip" v-else>
+                <slot name="doneTip">没有更多数据</slot>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -34,7 +45,8 @@ export default {
             dragTip: {
                 text: "下拉刷新",
                 showLoading: false
-            }
+            },
+            isDone: false
         };
     },
     mounted(){
@@ -50,7 +62,6 @@ export default {
                 return;
             }
             const options = {
-                scrollY: true, // 因为scrollY默认为true，其实可以省略
                 probeType: 1
             };
             this.scroll = new BScroll(this.$refs.wrapper, options);
@@ -75,11 +86,25 @@ export default {
                 }
 
             });
+
+            //滚到底部事件
+            this.scroll.on("scrollEnd", () => {
+                console.log(this.scroll.maxScrollY);
+                console.log(this.scroll.y);
+                if(this.scroll.y <= this.scroll.maxScrollY + 50){
+                    //触发上拉加载
+                    this.$emit('pullup');
+                    this.$on("loadedDone", () => {
+                        this.isDone = true;
+                    });
+                }
+            });
         
         },
 
         reset(){
             console.log('into reset method');
+            this.isDone = false;
             setTimeout(() => {
                 this.dragTip = {
                     text: "下拉刷新",
@@ -107,7 +132,7 @@ export default {
         margin-right: 0.2rem;
     }
 
-    .pulldown{
+    .pulldown, .pullup{
         width: 100%;
         height: 50px;
         position: relative;
@@ -121,5 +146,11 @@ export default {
         left: 50%;
         top: 5px;
         transform: translate(-50%, 0);
+    }
+
+    .list-donetip {
+        text-align: center;
+        line-height: 50px;
+        font-size: 0.28rem;
     }
 </style>

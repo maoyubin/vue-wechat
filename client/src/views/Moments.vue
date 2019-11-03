@@ -1,8 +1,10 @@
 <template>
     <div class="circle">
-        <Header title="朋友圈" btn_icon="camera" :isLeft="true" />
+        <Header title="朋友圈" btn_icon="camera" 
+            :isLeft="true" 
+            @rightClick="$router.push('/publish')" />
         <div class="container">
-            <Scroll ref="refresh" @pulldown="loadData">
+            <Scroll ref="refresh" @pulldown="loadData"  @pullup="loadMore">
                <div class="head_wrapper">
                     <div class="user_head">
                         <span>{{user.name  }}</span>
@@ -33,7 +35,9 @@ export default {
     name:"moments",
     data(){
         return {
-            momentsList: []
+            momentsList: [],
+            page: 2,
+            size: 3
         }
     },
     computed: {
@@ -59,7 +63,26 @@ export default {
         },
 
         loadData() {
+            this.page = 2;
             this.getLatestData();
+        },
+
+        loadMore(){
+            const request = `/api/profiles/${this.page}/${this.size}`;
+            console.log(request);
+            this.$axios(request)
+            .then(res => {
+                const result = [... res.data];
+                if(result.length > 0){
+                    result.forEach(item => {
+                        this.momentsList.push(item);
+                    });
+                    this.page ++;
+                }else {
+                    this.$refs.refresh.$emit('loadedDone');
+                }
+                console.log(this.momentsList);
+            });
         }
     },
     created() {
