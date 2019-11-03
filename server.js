@@ -9,9 +9,9 @@ const port = process.env.PORT || 5000;
 
 const app = express();
 // create application/json parser
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 // create application/x-www-form-urlencoded parser
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 app.use(passport.initialize());
 
 

@@ -2,14 +2,14 @@
     <div class="publish">
         <div class="header">
             <button @click="$router.go(-1)">取消</button>
-            <button @clicke="publish">发表</button>
+            <button @click="publish">发表</button>
         </div>
 
         <div class="content">
             <div class="text_wrap">
                 <textarea placeholder="请填写信息..." v-model="text"></textarea>
-                
-                <Upload></Upload>
+
+                <Upload @getImgs="getImgs"></Upload>
 
             </div>
         </div>
@@ -18,17 +18,55 @@
 
 <script>
 import Upload from '../components/Upload';
+import jwt_decode from 'jwt-decode';
 
 export default {
     name:"publish",
     data(){
         return {
-            text: ""
+            text: "",
+            imgs:[]
+        }
+    },
+    computed: {
+        user(){
+            const token = localStorage.mao;
+            const decode = jwt_decode(token);
+            //console.log(decode);
+            return decode;
         }
     },
     methods:{
          publish(){
+             //console.log(this.imgs);
+             const postData = {
+                 name: this.user.name,
+                 img: this.user.avatar,
+                 text: this.text,
+                 imgs: this.imgs.join('|')
+             };
+            console.log(postData);
 
+            this.$axios.post('/api/profiles/add', postData)
+             .then(res => {
+                 console.log('publish success !!');
+                 this.$router.push('/moments');
+             });
+        },
+        getImgs(imgs){
+            imgs.forEach(file => {
+                this.uploadFile(file);
+            });
+        },
+        uploadFile(file){
+            let reader = new FileReader();
+            const _this = this;
+            reader.onload = function(e){
+                //console.log(e.target.result);
+                _this.imgs.push(e.target.result);
+            };
+
+            reader.readAsDataURL(file);
         }
     },
     components: {

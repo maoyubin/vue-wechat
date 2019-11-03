@@ -14,7 +14,7 @@
                 <img 
                     v-for="(item,index) in momentsObj.imgs"
                     :key="index"
-                src="" alt="">
+                :src="item" alt="">
             </div>
         </div>
     </div>
