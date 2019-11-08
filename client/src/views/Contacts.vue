@@ -11,7 +11,7 @@
 
 
             <div class="content_wrapp">
-                <Cell v-for="(friend) in friendsList" :key="friend._id"
+                <Cell @click="cellClick(friend)" v-for="(friend) in friendsList" :key="friend._id"
                     :user="friend"
                 />
             </div>
@@ -54,6 +54,12 @@ export default {
             this.friendsList = this.allFriends.filter( friend => {
                 return friend.name.indexOf(this.search_value) != -1;
             });
+        },
+
+        cellClick(friend){
+            //console.log(friend);
+            this.$store.dispatch("setTargetUser", friend);
+            this.$router.push("/information");
         }
     },
     watch:{

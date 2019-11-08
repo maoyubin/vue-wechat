@@ -25,6 +25,9 @@ export default {
     name: "Cell",
     props: {
         momentsObj: Object
+    },
+    created(){
+        console.log(momentsObj);
     }
 }
 </script>
