@@ -7,7 +7,7 @@
             :key="index"
             >
             <img :src="file_img" alt="">
-            <button class="remove" @click="removeImg(file_img)">X</button>
+            <button v-show="!loading" class="remove" @click="removeImg(file_img)">X</button>
         </div>
 
         <div class="isImg img_upload" v-if="showFileData.length < 9">
@@ -22,6 +22,12 @@
 <script>
 export default {
     name:"upload",
+    props: {
+            loading: {
+                type: Boolean,
+                default: false
+            }        
+    },
     data(){
         return {
             showFileData: [],

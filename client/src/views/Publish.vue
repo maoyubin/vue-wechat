@@ -9,15 +9,18 @@
             <div class="text_wrap">
                 <textarea placeholder="请填写信息..." v-model="text"></textarea>
 
-                <Upload @getImgs="getImgs"></Upload>
+                <Upload :loading="loading" @getImgs="getImgs"></Upload>
 
             </div>
         </div>
+
+        <Loading :loading="loading"/>
     </div>
 </template>
 
 <script>
 import Upload from '../components/Upload';
+import Loading from '../components/Loading';
 import jwt_decode from 'jwt-decode';
 
 export default {
@@ -25,7 +28,9 @@ export default {
     data(){
         return {
             text: "",
-            imgs:[]
+            imgs:[],
+            loading: false
+
         }
     },
     computed: {
@@ -38,6 +43,7 @@ export default {
     },
     methods:{
          publish(){
+             this.loading = true;
              //console.log(this.imgs);
              const postData = {
                  name: this.user.name,
@@ -50,6 +56,7 @@ export default {
             this.$axios.post('/api/profiles/add', postData)
              .then(res => {
                  console.log('publish success !!');
+                 this.loading = false;
                  this.$router.push('/moments');
              });
         },
@@ -70,7 +77,7 @@ export default {
         }
     },
     components: {
-        Upload
+        Upload, Loading
     }
 }
 </script>

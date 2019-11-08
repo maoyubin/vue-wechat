@@ -62,8 +62,12 @@ export default {
                 return;
             }
             const options = {
-                probeType: 1
+                probeType: 1,
+                scrollbar: {
+                    fade: false
+                }
             };
+
             this.scroll = new BScroll(this.$refs.wrapper, options);
 
             //add 下拉事件
@@ -91,13 +95,13 @@ export default {
             this.scroll.on("scrollEnd", () => {
                 console.log(this.scroll.maxScrollY);
                 console.log(this.scroll.y);
-                if(this.scroll.y <= this.scroll.maxScrollY + 50){
+                if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
                     //触发上拉加载
                     this.$emit('pullup');
                     this.$on("loadedDone", () => {
                         this.isDone = true;
                     });
-                }
+               }
             });
         
         },
@@ -120,7 +124,6 @@ export default {
     .scroll-wrap {
         width: 100%;
         height: 100%;
-        overflow: hidden;
     }
 
     .fl {
