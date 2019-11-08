@@ -31,6 +31,7 @@
 <script>
 import InputGroup from '../components/InputGroup'
 import YButton from '../components/YButton'
+import jwt_decode from 'jwt-decode';
 
 export default {
     name: 'login',
@@ -59,6 +60,13 @@ export default {
                 const { token } = res.data;
                 //console.log('token=>'+token);
                 localStorage.setItem('mao', token);
+
+                const decode = jwt_decode(token);
+                //console.log(decode);
+
+                //save into vuex
+                this.$store.dispatch("setUser", decode);
+
                 this.$router.push('/');
             });
             

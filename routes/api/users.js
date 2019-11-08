@@ -61,4 +61,11 @@ router.get("/current", passport.authenticate("jwt",{session:false}), (req, res) 
     });
 });
 
+router.get("/all", passport.authenticate("jwt",{session:false}), (req, res) => {
+    User.find({}).then(users => {
+        console.log(users);
+        res.send(users);
+    });
+});
+
 module.exports = router;

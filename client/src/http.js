@@ -1,6 +1,7 @@
 import axios from 'axios'
 import router from './router'
 
+// reqest interceptor
 axios.interceptors.request.use(config => {
     //console.log('Go through the axios request');
     //console.log('In request localStorage.wxpyqToken=>'+localStorage.mao);
@@ -31,7 +32,6 @@ error => {
     }else{
         alert(error.response.data);
     }
-    
     
     return Promise.reject(error.response.data);
 }
